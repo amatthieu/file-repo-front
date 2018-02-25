@@ -2,6 +2,10 @@
 
 > A front for [a private file storage](https://github.com/aimadtakhtoukh/filerepo) using Vue.js.
 
+## Conf
+
+You need to create `/static/AuthorizationToken.json` which contains a *Bearer* for the server's API calls.
+
 ## Build Setup
 
 ``` bash
