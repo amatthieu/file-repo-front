@@ -36,6 +36,7 @@
 
 <script>
 import LoginService from '@/services/login.js'
+import {mapMutations} from 'vuex'
 
 export default {
   name: 'Login',
@@ -48,15 +49,19 @@ export default {
   },
   methods: {
     signIn () {
-      LoginService.signIn().then((response) => {
-        this.$router.push('MainPage')
+      LoginService.signIn(this.login, this.password).then((response) => {
+        this.setToken(response.data.access_token)
+        this.$router.push('home')
       }, (_) => {
         this.loginError = true
       })
     },
     signOn () {
       this.$router.push('Subscribe')
-    }
+    },
+    ...mapMutations([
+      'setToken'
+    ])
   }
 }
 </script>

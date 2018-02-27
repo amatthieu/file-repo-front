@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Login from '@/components/Login'
 import Subscribe from '@/components/Subscribe'
-import MainPage from '@/components/MainPage'
+import FileRepo from '@/components/FileRepo'
 
 Vue.use(Router)
 
@@ -19,9 +19,9 @@ export default new Router({
       component: Subscribe
     },
     {
-      path: '/main',
-      name: 'MainPage',
-      component: MainPage
+      path: '/home/:path*',
+      name: 'FileRepo',
+      component: FileRepo
     }
   ],
   mode: 'history'
