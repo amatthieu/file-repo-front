@@ -6,9 +6,21 @@ const signIn = function (login, password) {
     headers: {
       Authorization: AuthorizationToken
     }
+  }).then((response) => {
+    sessionStorage.setItem('token', response.data.access_token)
   })
 }
 
+const isLogged = function () {
+  return sessionStorage.getItem('token') || false
+}
+
+const getToken = function () {
+  return sessionStorage.getItem('token')
+}
+
 export default {
-  signIn
+  signIn,
+  isLogged,
+  getToken
 }

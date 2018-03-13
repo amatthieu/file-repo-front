@@ -1,37 +1,56 @@
 <template>
   <div>
-    <input type="file" @change="handleFileChange">
-    <button @click="addFile">Add File</button>
+    <upload-file></upload-file>
+    <div>
+      <generic-file
+        v-for="file in files"
+        :key="file.path"
+        file="file">
+      </generic-file>
+    </div>
+    <button @click="addFile">Add file</button>
   </div>
 </template>
 
 <script>
+import UploadFile from '@/components/UploadFile'
+import GenericFile from '@/components/GenericFile'
 import fileService from '@/services/file'
 
 export default {
   name: 'FileRepo',
   data () {
     return {
-      file: undefined
+      files: [],
+      i: 0
     }
   },
   mounted () {
-    fileService.getFile().then((response) => {
-      console.log(response)
-    }, (error) => {
-      console.log(error)
-    })
+    this.update()
+  },
+  watch: {
+    '$route.path': function () {
+      this.update()
+    }
+  },
+  components: {
+    UploadFile,
+    GenericFile
   },
   methods: {
-    addFile () {
-      fileService.uploadFile(this.$route.params.path, this.file).then((response) => {
-        console.log(response)
+    update () {
+      fileService.getFile(this.$route.params.path).then((response) => {
+        this.files.splice(0, this.files.length)
+        response.data.forEach(file => {
+          this.files.push(file)
+        })
       }, (error) => {
         console.log(error)
       })
     },
-    handleFileChange (event) {
-      this.file = event.target.files[0]
+    addFile () {
+      this.files.push({path: `zoieur${this.i}`})
+      ++this.i
     }
   }
 }

@@ -6,6 +6,10 @@
 
 You need to create `/static/AuthorizationToken.json` which contains a *Bearer* for the server's API calls.
 
+## How it works
+
+The login token is stored in `token` in the sessionStorage.
+
 ## Build Setup
 
 ``` bash
